@@ -1,0 +1,330 @@
+//SMA and call by value
+#include<stdio.h>
+#define max 10
+int push(int[],int);
+int pop(int[],int);
+void display(int[],int);
+void peek(int[],int);
+void main()
+{
+    int t=-1,a[max],ch;
+    do
+    {
+        printf("\n 1-Push\n 2-pop\n 3-display\n 4-peek\n5-stop");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:
+                t=push(a,t);
+                break;
+            case 2:
+                t=pop(a,t);
+                break;
+            case 3:
+                display(a,t);
+                break;
+            case 4:
+                peek(a,t);
+                break;
+        }
+    }while(ch<=4);
+}
+int push(int a[],int t)
+{
+    int x;
+    if(t==max-1)
+        printf("Stack is full");
+    else
+    {
+        scanf("%d",&x);
+        t++;
+        a[t]=x;
+    }
+    return t;
+}
+int pop(int a[],int t)
+{
+    int x;
+    if(t==-1)
+        printf("Stack is empty");
+    else
+    {
+        x=a[t];
+        printf("%d",x);
+        t--;
+    }
+    return t;
+}
+void display(int a[],int t)
+{
+    if(t==-1)
+        printf("Stack is empty");
+    else
+    {
+        while(t>=0)
+        {
+            printf("%d",a[t]);
+            t--;
+        }
+    }
+}
+void peek(int a[],int t)
+{
+    if(t==-1)
+        printf("Stack is empty");
+    else
+    {
+        printf("%d",a[t]);
+    }
+}/*
+//SMA and call by reference
+#include<stdio.h>
+#define max 10
+void push(int[],int*);
+void pop(int[],int*);
+void display(int[],int);
+void peek(int[],int);
+void main()
+{
+    int t=-1,a[max],ch;
+    do
+    {
+        printf("\n 1-Push\n 2-pop\n 3-display\n 4-peek\n5-stop");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:
+                push(a,&t);
+                break;
+            case 2:
+                pop(a,&t);
+                break;
+            case 3:
+                display(a,t);
+                break;
+            case 4:
+                peek(a,t);
+                break;
+        }
+    }while(ch<=4);
+}
+void push(int a[],int *t)
+{
+    int x;
+    if((*t)==max-1)
+        printf("Stack is full");
+    else
+    {
+        scanf("%d",&x);
+        (*t)++;
+        a[*t]=x;
+    }
+}
+void pop(int a[],int *t)
+{
+    int x;
+    if(t==-1)
+        printf("Stack is empty");
+    else
+    {
+        x=a[(*t)];
+        printf("%d",x);
+        (*t)--;
+    }
+}
+void display(int a[],int t)
+{
+    if(t==-1)
+        printf("Stack is empty");
+    else
+    {
+        while(t>=0)
+        {
+            printf("%d",a[t]);
+            t--;
+        }
+    }
+}
+void peek(int a[],int t)
+{
+    if(t==-1)
+        printf("Stack is empty");
+    else
+    {
+        printf("%d",a[t]);
+    }
+}/*
+//DMA and call by value
+#include<stdio.h>
+#include<stdlib.h>
+#define max 10
+int push(int*,int);
+int pop(int*,int);
+void display(int*,int);
+void peek(int*,int);
+void main()
+{
+    int t=-1,*p,ch;
+    p=(int*)malloc(max*sizeof(int));
+    if(p==NULL)
+        printf("Memory not allocated");
+    else
+    {
+        do
+        {
+            printf("\n 1-Push\n 2-pop\n 3-display\n 4-peek\n5-stop");
+            scanf("%d",&ch);
+            switch(ch)
+            {
+                case 1:
+                    t=push(p,t);
+                    break;
+                case 2:
+                    t=pop(p,t);
+                    break;
+                case 3:
+                    display(p,t);
+                    break;
+                case 4:
+                    peek(p,t);
+                    break;
+            }
+        }while(ch<=4);
+    }
+}
+int push(int a[],int t)
+{
+    int x;
+    if(t==max-1)
+        printf("Stack is full");
+    else
+    {
+        scanf("%d",&x);
+        t++;
+        a[t]=x;
+    }
+    return t;
+}
+int pop(int a[],int t)
+{
+    int x;
+    if(t==-1)
+        printf("Stack is empty");
+    else
+    {
+        x=a[t];
+        printf("%d",x);
+        t--;
+    }
+    return t;
+}
+void display(int a[],int t)
+{
+    if(t==-1)
+        printf("Stack is empty");
+    else
+    {
+        while(t>=0)
+        {
+            printf("%d",a[t]);
+            t--;
+        }
+    }
+}
+void peek(int a[],int t)
+{
+    if(t==-1)
+        printf("Stack is empty");
+    else
+    {
+        printf("%d",a[t]);
+    }
+}
+//DMA and call by reference
+#include<stdio.h>
+#include<stdlib.h>
+#define max 10
+void push(int*,int*);
+void pop(int*,int*);
+void display(int*,int);
+void peek(int*,int);
+void main()
+{
+    int t=-1,*p,ch;
+    p=(int*)malloc(max*sizeof(int));
+    if(p==NULL)
+        printf("Memory not allocated");
+    else
+    {
+        do
+        {
+            printf("\n 1-Push\n 2-pop\n 3-display\n 4-peek\n5-stop");
+            scanf("%d",&ch);
+            switch(ch)
+            {
+                case 1:
+                    push(p,&t);
+                    break;
+                case 2:
+                    pop(p,&t);
+                    break;
+                case 3:
+                    display(p,t);
+                    break;
+                case 4:
+                    peek(p,t);
+                    break;
+            }
+        }while(ch<=4);
+    }
+}
+void push(int a[],int *t)
+{
+    int x;
+    if(*t==max-1)
+        printf("Stack is full");
+    else
+    {
+        scanf("%d",&x);
+        (*t)++;
+        a[*t]=x;
+    }
+}
+void pop(int a[],int *t)
+{
+    int x;
+    if(*t==-1)
+        printf("Stack is empty");
+    else
+    {
+        x=a[*t];
+        printf("%d",x);
+        (*t)--;
+    }
+}
+void display(int a[],int t)
+{
+    if(t==-1)
+        printf("Stack is empty");
+    else
+    {
+        while(t>=0)
+        {
+            //printf("ram %d",a[t]);
+            printf("%d",a[t]);
+            t--;
+        }
+    }
+}
+void peek(int a[],int t)
+{
+    if(t==-1)
+        printf("Stack is empty");
+    else
+    {
+        printf("%d",a[t]);
+    }
+}*/
+
+
+
