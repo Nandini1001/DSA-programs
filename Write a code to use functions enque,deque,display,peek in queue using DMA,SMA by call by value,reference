@@ -1,0 +1,350 @@
+//SMA and call by value
+#define max 10
+#include<stdio.h>
+int enq(int [],int);
+int deq(int [],int,int);
+void disp(int[],int,int);
+void peek(int[],int,int);
+void main()
+{
+    int q[max],r=-1,f=-1,ch;
+    do
+    {
+        printf("\n1-Enque:\n2-deque:\n3:display:\n4-peek:\n5-stop: ");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:
+                r=enq(q,r);
+                if(f==-1)
+                    f=0;
+                break;
+            case 2:
+                f=deq(q,r,f);
+                if(f==-1)
+                    r==-1;
+                break;
+            case 3:
+                disp(q,r,f);
+                break;
+            case 4:
+                peek(q,r,f);
+                break;
+        }
+    }while(ch<=4);
+}
+int enq(int q[],int r)
+{
+    int x;
+    if(r==(max-1))
+        printf("Queue is full");
+    else
+    {
+        scanf("%d",&x);
+        r++;
+        q[r]=x;
+    }
+    return r;
+}
+int deq(int q[],int r,int f)
+{
+    int x;
+    if((r==-1)&&(f==-1))
+        printf("Queue is empty");
+    else
+    {
+        x=q[f];
+        printf("%d",x);
+        if(r==f)
+            f=-1;
+        else
+            f++;
+    }
+    return f;
+}
+void disp(int q[],int r,int f)
+{
+    int x;
+    if((r==-1)&&(f==-1))
+        printf("Queue is empty");
+    else
+    {
+        while(f<=r)
+        {
+             printf("%d ",q[f]);
+             f++;
+        }
+    }
+}
+void peek(int q[],int r,int f)
+{
+    if((r==-1)&&(f==-1))
+        printf("Queue is empty");
+    else
+        printf("%d",q[f]);
+}
+//SMA and call by refernece
+/*#define max 10
+#include<stdio.h>
+void enq(int [],int*);
+void deq(int [],int*,int*);
+void disp(int[],int,int);
+void peek(int[],int,int);
+void main()
+{
+    int q[max],r=-1,f=-1,ch;
+    do
+    {
+        printf("\n1-Enque:\n2-deque:\n3:display:\n4-peek:\n5-stop: ");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:
+                enq(q,&r);
+                if(f==-1)
+                    f=0;
+                break;
+            case 2:
+                deq(q,&r,&f);
+                if(f==-1)
+                    r==-1;
+                break;
+            case 3:
+                disp(q,r,f);
+                break;
+            case 4:
+                peek(q,r,f);
+                break;
+        }
+    }while(ch<=4);
+}
+void enq(int q[],int *r)
+{
+    int x;
+    if(*r==(max-1))
+        printf("Queue is full");
+    else
+    {
+        scanf("%d",&x);
+        (*r)++;
+        q[*r]=x;
+    }
+}
+void deq(int q[],int *r,int *f)
+{
+    int x;
+    if((*r==-1)&&(*f==-1))
+        printf("Queue is empty");
+    else
+    {
+        x=q[*f];
+        printf("%d",x);
+        if(*r==*f)
+            *f=-1;
+        else
+            (*f)++;
+    }
+}
+void disp(int q[],int r,int f)
+{
+    int x;
+    if((r==-1)&&(f==-1))
+        printf("Queue is empty");
+    else
+    {
+        while(f<=r)
+        {
+             printf("%d ",q[f]);
+             f++;
+        }
+    }
+}
+void peek(int q[],int r,int f)
+{
+    if((r==-1)&&(f==-1))
+        printf("Queue is empty");
+    else
+        printf("%d",q[f]);
+}
+//DMA and call by value
+#define max 10
+#include<stdio.h>
+int enq(int *,int);
+int deq(int *,int,int);
+void disp(int *,int,int);
+void peek(int*,int,int);
+void main()
+{
+    int *q,r=-1,f=-1,ch;
+    q=(int*)malloc(max*sizeof(int));
+    if(q==NULL)
+        printf("Memory not allocated");
+    else
+    {
+    do
+    {
+        printf("\n1-Enque:\n2-deque:\n3:display:\n4-peek:\n5-stop: ");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:
+                r=enq(q,r);
+                if(f==-1)
+                    f=0;
+                break;
+            case 2:
+                f=deq(q,r,f);
+                if(f==-1)
+                    r==-1;
+                break;
+            case 3:
+                disp(q,r,f);
+                break;
+            case 4:
+                peek(q,r,f);
+                break;
+        }
+    }while(ch<=4);
+    }
+}
+int enq(int *q,int r)
+{
+    int x;
+    if(r==(max-1))
+        printf("Queue is full");
+    else
+    {
+        scanf("%d",&x);
+        r++;
+        *(q+r)=x;
+    }
+    return r;
+}
+int deq(int *q,int r,int f)
+{
+    int x;
+    if((r==-1)&&(f==-1))
+        printf("Queue is empty");
+    else
+    {
+        x=*(q+f);
+        printf("%d",x);
+        if(r==f)
+            f=-1;
+        else
+            f++;
+    }
+    return f;
+}
+void disp(int *q,int r,int f)
+{
+    int x;
+    if((r==-1)&&(f==-1))
+        printf("Queue is empty");
+    else
+    {
+        while(f<=r)
+        {
+             printf("%d ",*(q+f));
+             f++;
+        }
+    }
+}
+void peek(int *q,int r,int f)
+{
+    if((r==-1)&&(f==-1))
+        printf("Queue is empty");
+    else
+        printf("%d",*(q+f));
+}
+//DMA and call by reference
+#define max 10
+#include<stdio.h>
+void enq(int *,int*);
+void deq(int *,int*,int*);
+void disp(int *,int,int);
+void peek(int*,int,int);
+void main()
+{
+    int *q,r=-1,f=-1,ch;
+    q=(int*)malloc(max*sizeof(int));
+    if(q==NULL)
+        printf("Memory not allocated");
+    else
+    {
+    do
+    {
+        printf("\n1-Enque:\n2-deque:\n3:display:\n4-peek:\n5-stop: ");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:
+                enq(q,&r);
+                if(f==-1)
+                    f=0;
+                break;
+            case 2:
+                deq(q,&r,&f);
+                if(f==-1)
+                    r=-1;
+                break;
+            case 3:
+                disp(q,r,f);
+                break;
+            case 4:
+                peek(q,r,f);
+                break;
+        }
+    }while(ch<=4);
+    }
+}
+void enq(int *q,int *r)
+{
+    int x;
+    if(*r==(max-1))
+        printf("Queue is full");
+    else
+    {
+        scanf("%d",&x);
+        (*r)++;
+        *(q+(*r))=x;
+    }
+}
+void deq(int *q,int *r,int *f)
+{
+    int x;
+    if((*r==-1)&&(*f==-1))
+        printf("Queue is empty");
+    else
+    {
+        x=*(q+(*f));
+        printf("%d",x);
+        if(*r==*f)
+            *f=-1;
+        else
+            (*f)++;
+    }
+}
+void disp(int *q,int r,int f)
+{
+    int x;
+    if((r==-1)&&(f==-1))
+        printf("Queue is empty");
+    else
+    {
+        while(f<=r)
+        {
+             printf("%d ",*(q+f));
+             f++;
+        }
+    }
+}
+void peek(int *q,int r,int f)
+{
+    if((r==-1)&&(f==-1))
+        printf("Queue is empty");
+    else
+        printf("%d",*(q+f));
+}*/
+
+
