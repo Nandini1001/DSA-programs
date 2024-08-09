@@ -1,0 +1,358 @@
+//SMA and call by value
+#include<stdio.h>
+#define max 10
+int cenq(int[],int,int);
+int cdeq(int[],int,int);
+void cdisp(int[],int,int);
+void cpeek(int[],int,int);
+void main()
+{
+    int cq[max],r=-1,f=-1,ch;
+    do
+    {
+        printf("\n1-Enque\n2-deque\n3-display\n4-peek: ");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+        case 1:
+            r=cenq(cq,r,f);
+            if(f==-1)
+                f=0;
+            break;
+        case 2:
+            f=cdeq(cq,r,f);
+            if(f==-1)
+                r=-1;
+            break;
+        case 3:
+            cdisp(cq,r,f);
+            break;
+        case 4:
+            cpeek(cq,r,f);
+            break;
+        }
+
+
+    }while(ch<=4);
+}
+int cenq(int cq[],int r,int f)
+{
+    int x;
+    if((r+1)%max==f)
+        printf("Circular queue is full");
+    else
+    {
+        scanf("%d",&x);
+        r=(r+1)%max;
+        cq[r]=x;
+    }
+    return r;
+}
+int cdeq(int cq[],int r,int f)
+{
+    int x;
+    if(r==-1&&f==-1)
+        printf("Circular queue is empty");
+    else
+    {
+        x=cq[f];
+        printf("%d",x);
+        if(r==f)
+            f=-1;
+        else
+            f=(f+1)%max;
+    }
+    return f;
+}
+void cdisp(int cq[],int r,int f)
+{
+    if(r==-1&&f==-1)
+        printf("Circular queue is empty");
+    else
+    {
+        while(f!=r)
+        {
+            printf("%d ",cq[f]);
+            f=(f+1)%max;
+        }
+        printf("%d",cq[f]);
+    }
+}
+void cpeek(int cq[],int r,int f)
+{
+    if(r==-1&&f==-1)
+        printf("Circular queue is empty");
+    printf("%d",cq[f]);
+}
+//SMA and call by reference
+/*#include<stdio.h>
+#define max 10
+void cenq(int[],int*,int);
+void cdeq(int[],int,int*);
+void cdisp(int[],int,int);
+void cpeek(int[],int,int);
+void main()
+{
+    int cq[max],r=-1,f=-1,ch;
+    do
+    {
+        printf("\n1-Enque\n2-deque\n3-display\n4-peek: ");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+        case 1:
+            cenq(cq,&r,f);
+            if(f==-1)
+                f=0;
+            break;
+        case 2:
+            cdeq(cq,r,&f);
+            if(f==-1)
+                r=-1;
+            break;
+        case 3:
+            cdisp(cq,r,f);
+            break;
+        case 4:
+            cpeek(cq,r,f);
+            break;
+        }
+
+
+    }while(ch<=4);
+}
+void cenq(int cq[],int *r,int f)
+{
+    int x;
+    if((*r+1)%max==f)
+        printf("Circular queue is full");
+    else
+    {
+        scanf("%d",&x);
+        *r=(*r+1)%max;
+        cq[*r]=x;
+    }
+}
+void cdeq(int cq[],int r,int *f)
+{
+    int x;
+    if(r==-1&&*f==-1)
+        printf("Circular queue is empty");
+    else
+    {
+        x=cq[*f];
+        printf("%d",x);
+        if(r==*f)
+            *f=-1;
+        else
+            *f=(*f+1)%max;
+    }
+}
+void cdisp(int cq[],int r,int f)
+{
+    if(r==-1&&f==-1)
+        printf("Circular queue is empty");
+    else
+    {
+        while(f!=r)
+        {
+            printf("%d ",cq[f]);
+            f=(f+1)%max;
+        }
+        printf("%d",cq[f]);
+    }
+}
+void cpeek(int cq[],int r,int f)
+{
+    if(r==-1&&f==-1)
+        printf("Circular queue is empty");
+    printf("%d",cq[f]);
+}
+//DMA and call by value
+#include<stdio.h>
+#define max 10
+int cenq(int*,int,int);
+int cdeq(int*,int,int);
+void cdisp(int*,int,int);
+void cpeek(int*,int,int);
+void main()
+{
+    int *p,r=-1,f=-1,ch;
+    p=(int*)malloc(max*sizeof(int));
+    if(p==NULL)
+        printf("Memory not allocated");
+    else
+    {
+    do
+    {
+        printf("\n1-Enque\n2-deque\n3-display\n4-peek: ");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+        case 1:
+            r=cenq(p,r,f);
+            if(f==-1)
+                f=0;
+            break;
+        case 2:
+            f=cdeq(p,r,f);
+            if(f==-1)
+                r=-1;
+            break;
+        case 3:
+            cdisp(p,r,f);
+            break;
+        case 4:
+            cpeek(p,r,f);
+            break;
+        }
+
+
+    }while(ch<=4);
+    }
+}
+int cenq(int *p,int r,int f)
+{
+    int x;
+    if((r+1)%max==f)
+        printf("Circular queue is full");
+    else
+    {
+        scanf("%d",&x);
+        r=(r+1)%max;
+        *(p+r)=x;
+    }
+    return r;
+}
+int cdeq(int *p,int r,int f)
+{
+    int x;
+    if(r==-1&&f==-1)
+        printf("Circular queue is empty");
+    else
+    {
+        x=*(p+f);
+        printf("%d",x);
+        if(r==f)
+            f=-1;
+        else
+            f=(f+1)%max;
+    }
+    return f;
+}
+void cdisp(int *p,int r,int f)
+{
+    if(r==-1&&f==-1)
+        printf("Circular queue is empty");
+    else
+    {
+        while(f!=r)
+        {
+            printf("%d ",*(p+f));
+            f=(f+1)%max;
+        }
+        printf("%d",*(p+f));
+    }
+}
+void cpeek(int *p,int r,int f)
+{
+    if(r==-1&&f==-1)
+        printf("Circular queue is empty");
+    printf("%d",*(p+f));
+}
+//DMA and call by reference
+#include<stdio.h>
+#define max 10
+void cenq(int*,int*,int);
+void cdeq(int*,int,int*);
+void cdisp(int*,int,int);
+void cpeek(int*,int,int);
+void main()
+{
+    int *p,r=-1,f=-1,ch;
+    p=(int*)malloc(max*sizeof(int));
+    if(p==NULL)
+        printf("Memory not allocated");
+    else
+    {
+    do
+    {
+        printf("\n1-Enque\n2-deque\n3-display\n4-peek: ");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+        case 1:
+            cenq(p,&r,f);
+            if(f==-1)
+                f=0;
+            break;
+        case 2:
+            cdeq(p,r,&f);
+            if(f==-1)
+                r=-1;
+            break;
+        case 3:
+            cdisp(p,r,f);
+            break;
+        case 4:
+            cpeek(p,r,f);
+            break;
+        }
+
+
+    }while(ch<=4);
+    }
+}
+void cenq(int *p,int *r,int f)
+{
+    int x;
+    if((*r+1)%max==f)
+        printf("Circular queue is full");
+    else
+    {
+        scanf("%d",&x);
+        *r=(*r+1)%max;
+        *(p+*r)=x;
+    }
+}
+void cdeq(int *p,int r,int *f)
+{
+    int x;
+    if(r==-1&&*f==-1)
+        printf("Circular queue is empty");
+    else
+    {
+        x=*(p+*f);
+        printf("%d",x);
+        if(r==*f)
+            *f=-1;
+        else
+            *f=(*f+1)%max;
+    }
+}
+void cdisp(int *p,int r,int f)
+{
+    if(r==-1&&f==-1)
+        printf("Circular queue is empty");
+    else
+    {
+        while(f!=r)
+        {
+            printf("%d ",*(p+f));
+            f=(f+1)%max;
+        }
+        printf("%d",*(p+f));
+    }
+}
+void cpeek(int *p,int r,int f)
+{
+    if(r==-1&&f==-1)
+        printf("Circular queue is empty");
+    printf("%d",*(p+f));
+}*/
+
+
+
+
+
+
