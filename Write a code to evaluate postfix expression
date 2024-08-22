@@ -1,0 +1,78 @@
+#include<stdio.h>
+#include<math.h>
+#define max 20
+int push(int[],int,int);
+int pop(int[],int*);
+void main()
+{
+    int top=-1,stack[max],ans,x,y,i=0,num;
+    char postfix[max];
+    gets(postfix);
+    while(postfix[i]!=0)
+    {
+        if((postfix[i]>='a'&&postfix[i]<='z')||(postfix[i]>='A'&&postfix[i]<='Z'))
+        {
+            printf("Enter value of %c: ",postfix[i]);
+            scanf("%d",&num);
+            top=push(stack,num,top);
+        }
+        else
+        {
+            x=pop(stack,&top);
+            y=pop(stack,&top);
+            if(postfix[i]=='+')
+                ans=y+x;
+            else if(postfix[i]=='-')
+             {
+                ans=y-x;
+                printf("%d  ",ans);
+             }
+            else if(postfix[i]=='*')
+            {
+                ans=y*x;
+                printf("%d  ",ans);
+            }
+            else if(postfix[i]=='/')
+             {
+                 ans=y/x;
+                printf("%d  ",ans);
+             }
+            else if(postfix[i]=='%')
+            {
+                ans=y%x;
+                printf("%d  ",ans);
+            }
+            else if(postfix[i]=='^')
+            {
+                ans=pow(y,x);
+                printf("%d  ",ans);
+            }
+            top=push(stack,ans,top);
+        }
+        i++;
+    }
+    printf(" Ans is %d",ans);
+}
+int push(int stack[],int num,int top)
+{
+    if(top==(max-1))
+        printf("Stack is full");
+    else
+    {
+        top++;
+        stack[top]=num;
+    }
+    return top;
+}
+int pop(int stack[],int *top)
+{
+    int x;
+   if(top==-1)
+        printf("Stack is empty");
+   else
+   {
+       x=stack[*top];
+       (*top)--;
+   }
+   return x;
+}
