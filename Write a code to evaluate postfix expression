@@ -23,30 +23,15 @@ void main()
             if(postfix[i]=='+')
                 ans=y+x;
             else if(postfix[i]=='-')
-             {
                 ans=y-x;
-                printf("%d  ",ans);
-             }
             else if(postfix[i]=='*')
-            {
                 ans=y*x;
-                printf("%d  ",ans);
-            }
             else if(postfix[i]=='/')
-             {
-                 ans=y/x;
-                printf("%d  ",ans);
-             }
+                ans=y/x;
             else if(postfix[i]=='%')
-            {
                 ans=y%x;
-                printf("%d  ",ans);
-            }
             else if(postfix[i]=='^')
-            {
                 ans=pow(y,x);
-                printf("%d  ",ans);
-            }
             top=push(stack,ans,top);
         }
         i++;
