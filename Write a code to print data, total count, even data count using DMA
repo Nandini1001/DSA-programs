@@ -1,0 +1,54 @@
+#include<stdio.h>
+typedef struct list
+{
+    int data;
+    struct list *next;
+}sl;
+void main()
+{
+    sl *r=NULL, *l=NULL, *p=NULL;
+    int c,e=0,d=0;
+    while(1)
+    {
+        p=(sl*)malloc(sizeof(sl));
+        if(p!=NULL)
+        {
+            printf("Enter value for data: ");
+            scanf("%d",&p->data);
+            if(r==NULL && l==NULL)
+                r=l=p;
+            else
+            {
+                r->next=p;
+                r=p;
+            }
+            printf("\nPress 1 to continue else 0");
+            scanf("%d",&c);
+            if(c==0)
+                break;
+        }
+        else
+            printf("Memory not allocated");
+    }
+    r->next=0;
+    p=l;
+    while(p!=NULL)   //for print
+    {
+        printf("%d ",p->data);
+        p=p->next;
+    }
+    p=l;
+    while(p!=NULL)  //for count
+    {
+        d++;
+        p=p->next;
+    }
+    p=l;
+    while(p!=NULL)  //for even 
+    {
+        if(p->data%2==0)
+            e++;
+        p=p->next;
+    }
+    printf("Even no are %d and count is %d",e,d);
+}
