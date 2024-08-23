@@ -1,0 +1,22 @@
+#include<stdio.h>
+struct list
+{
+    int data;
+    struct list *next;
+}a,b,c;
+void main()
+{
+    struct list *p=NULL;
+    a.data=10;
+    b.data=20;
+    c.data=30;
+    a.next=&b;
+    b.next=&c;
+    c.next=0;
+    p=&a;
+    while(p!=NULL)
+    {
+        printf("%d ",p->data);
+        p=p->next;
+    }
+}
