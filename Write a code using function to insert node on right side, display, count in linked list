@@ -1,0 +1,72 @@
+#include<stdio.h>
+typedef struct list
+{
+    int data;
+    struct list*next;
+}sl;
+sl* insert(sl*);
+void disp(sl*);
+void count(sl*);
+void main()
+{
+    int ch;
+    sl *l=NULL,*r=NULL;
+    do
+    {
+        printf("\npress 1-insert 2-display 3-count: ");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+        case 1:
+            r=insert(r);
+            if(l==NULL)
+                l=r;
+            break;
+        case 2:
+            disp(l);
+            break;
+        case 3:
+            count(l);
+            break;
+        }
+    }while(ch<=3);
+}
+sl* insert(sl *r)
+{
+    sl *p=NULL;
+    p=(sl*)malloc(sizeof(sl));
+    if(p==NULL)
+        printf("Memory not allocated");
+    else
+    {
+        printf("Enter a value: ");
+        scanf("%d",&p->data);
+        if(r==NULL)
+            r=p;
+        else
+        {
+            r->next=p;
+            r=p;
+        }
+        r->next=NULL;
+        return r;
+    }
+}
+void disp(sl *l)
+{
+    while(l!=NULL)
+    {
+        printf("%d",l->data);
+        l=l->next;
+    }
+}
+void count(sl *l)
+{
+    int c=0;
+    while(l!=NULL)
+    {
+        c++;
+        l=l->next;
+    }
+    printf("%d",c);
+}
