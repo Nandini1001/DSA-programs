@@ -1,0 +1,47 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct list
+{
+    int data;
+    struct list *next;
+}sl;
+sl* push(sl*);
+void disp(sl*);
+void main()
+{
+    sl *top=NULL;
+    int ch;
+    while(1)
+    {
+        top=push(top);
+        printf("Do you want to continue 1-0: ");
+        scanf("%d",&ch);
+        if(ch==0)
+            break;
+    }
+    disp(top);
+}
+sl* push(sl *top)
+{
+    sl *p=NULL;
+    p=(sl*)malloc(sizeof(sl));
+    if(p==NULL)
+        printf("Memory not allocated");
+    else
+    {
+        printf("Enter a value: ");
+        scanf("%d",&p->data);
+        p->next=top;
+        top=p;
+    }
+    return top;
+}
+void disp(sl *top)
+{
+    printf("Linked list data in reverse order: ");
+    while(top!=NULL)
+    {
+        printf("%d ",top->data);
+        top=top->next;
+    }
+}
