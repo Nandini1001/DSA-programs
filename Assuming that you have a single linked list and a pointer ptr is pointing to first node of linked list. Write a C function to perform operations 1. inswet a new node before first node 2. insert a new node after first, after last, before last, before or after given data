@@ -1,0 +1,233 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct list
+{
+    int data;
+    struct list *next;
+}sl;
+sl* insert_beforefirst(sl*);
+sl* del_first(sl*);
+void del_last(sl*);
+void del_secondlast(sl*);
+void insert_afterfirst(sl*);
+void insert_afterlast(sl*);
+void insert_beforelast(sl*);
+void insert_between(sl*);
+void main()
+{
+    sl *p=NULL, *l=NULL;
+    int ch;
+    while(1)
+    {
+        p=(sl*)malloc(sizeof(sl));
+        if(p==NULL)
+            printf("Memory not allocated");
+        else
+        {
+            printf("Enter a value: ");
+            scanf("%d",&p->data);
+            p->next=l;
+            l=p;
+            printf("Do you want to continue 1-0: ");
+            scanf("%d",&ch);
+            if(ch==0)
+                break;
+        }
+    }
+    l=insert_beforefirst(l);
+    p=l;
+    printf("Linked list data after inserting node before first node: ");
+    while(p!=NULL)
+    {
+        printf("%d ",p->data);
+        p=p->next;
+    }
+    insert_afterfirst(l);
+    p=l;
+    printf("Linked list data after inserting node after first node: ");
+    while(p!=NULL)
+    {
+        printf("%d ",p->data);
+        p=p->next;
+    }
+    insert_afterlast(l);
+    p=l;
+    printf("Linked list data after inserting node after last node: ");
+    while(p!=NULL)
+    {
+        printf("%d ",p->data);
+        p=p->next;
+    }
+    insert_beforelast(l);
+    p=l;
+    printf("Linked list data after inserting node before last node: ");
+    while(p!=NULL)
+    {
+        printf("%d ",p->data);
+        p=p->next;
+    }
+    insert_between(l);
+    p=l;
+    printf("Linked list data after inserting node at any position: ");
+    while(p!=NULL)
+    {
+        printf("%d ",p->data);
+        p=p->next;
+    }
+    l=del_first(l);
+    p=l;
+    printf("\nLinked list data after deleting first node: ");
+    while(p!=NULL)
+    {
+        printf("%d ",p->data);
+        p=p->next;
+    }
+    del_last(l);
+    p=l;
+    printf("\nLinked list data after deleting last node: ");
+    while(p!=NULL)
+    {
+        printf("%d ",p->data);
+        p=p->next;
+    }
+    del_secondlast(l);
+    p=l;
+    printf("\nLinked list data after deleting second last node: ");
+    while(p!=NULL)
+    {
+        printf("%d ",p->data);
+        p=p->next;
+    }
+}
+sl* insert_beforefirst(sl *ptr)
+{
+    sl *p=NULL;
+    p=(sl*)malloc(sizeof(sl));
+    if(p==NULL)
+    {
+        printf("Memory not allocated");
+
+    }
+    else
+    {
+        printf("\nEnter a value for new node: ");
+        scanf("%d",&p->data);
+        p->next=ptr;
+        ptr=p;
+    }
+    return ptr;
+}
+void insert_afterfirst(sl *ptr)
+{
+    sl *p=NULL;
+    p=(sl*)malloc(sizeof(sl));
+    if(p==NULL)
+    {
+        printf("Memory not allocated");
+
+    }
+    else
+    {
+        printf("\nEnter a value for new node: ");
+        scanf("%d",&p->data);
+        p->next=ptr->next;
+        ptr->next=p;
+    }
+}
+void insert_afterlast(sl *ptr)
+{
+    sl *p=NULL;
+    p=(sl*)malloc(sizeof(sl));
+    if(p==NULL)
+    {
+        printf("Memory not allocated");
+
+    }
+    else
+    {
+        while(ptr->next!=0)
+            ptr=ptr->next;
+        printf("\nEnter a value for new node: ");
+        scanf("%d",&p->data);
+        ptr->next=p;
+        p->next=NULL;
+    }
+}
+void insert_beforelast(sl *ptr)
+{
+    sl *p=NULL;
+    p=(sl*)malloc(sizeof(sl));
+    if(p==NULL)
+    {
+        printf("Memory not allocated");
+
+    }
+    else
+    {
+        while(ptr->next->next!=0)
+            ptr=ptr->next;
+        printf("\nEnter a value for new node: ");
+        scanf("%d",&p->data);
+        p->next=ptr->next;
+        ptr->next=p;
+    }
+}
+sl* del_first(sl *ptr)
+{
+    sl *p=ptr;
+    ptr=ptr->next;
+    free(p);
+    return ptr;
+}
+void del_last(sl *ptr)
+{
+    sl *p=0;
+    while(ptr->next->next!=0)
+            ptr=ptr->next;
+    p=ptr->next;
+    ptr->next=0;
+    free(p);
+}
+void del_secondlast(sl *ptr)
+{
+    sl *p=0;
+    while(ptr->next->next->next!=0)
+            ptr=ptr->next;
+    p=ptr->next;
+    ptr->next=p->next;
+    free(p);
+}
+void insert_between(sl *ptr)
+{
+    sl *p=NULL;
+    int ch,c;
+    p=(sl*)malloc(sizeof(sl));
+    if(p==NULL)
+    {
+        printf("Memory not allocated");
+
+    }
+    else
+    {
+        printf("\nEnter a value for new node: ");
+        scanf("%d",&p->data);
+        printf("\nEnter value where you want to insert node: ");
+        scanf("%d",&ch);
+        printf("\nPress 1-before 2-after: ");
+        scanf("%d",&c);
+        if(c==1)
+        {
+            while(ptr->next->data!=ch)
+                ptr=ptr->next;
+            p->next=ptr->next;
+            ptr->next=p;
+        }
+        else
+        {
+            while(ptr->data!=ch)
+                ptr=ptr->next;
+            p->next=ptr->next;
+            ptr->next=p;
+        }
+    }
+}
