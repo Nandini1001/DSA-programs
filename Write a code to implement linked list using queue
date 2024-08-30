@@ -1,0 +1,87 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct queue
+{
+    int data;
+    struct queue *next;
+}q;
+q* enq(q*);
+q* deq(q*);
+void disp(q*);
+void main()
+{
+    q *r=NULL, *f=NULL;
+    int ch;
+    do
+    {
+        printf("\nPress 1-enque 2-deque 3-display: ");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+        case 1:
+            r=enq(r);
+            if(f==NULL)
+                f=r;
+            break;
+        case 2:
+            f=deq(f);
+            if(f==NULL)
+                r=f;
+            break;
+        case 3:
+            disp(f);
+            break;
+        }
+    }while(ch<=3);
+}
+q* enq(q*r)
+{
+    q*p=NULL;
+    p=(q*)malloc(sizeof(q));
+    if(p==0)
+        printf("Memory not allocated");
+    else
+    {
+        printf("Enter a value: ");
+        scanf("%d",& p->data);
+        if(r==NULL)
+            r=p;
+        else
+        {
+            r->next=p;
+            r=p;
+        }
+        r->next=NULL;
+    }
+    return r;
+}
+q* deq(q *f)
+{
+    q *p=f;
+    if(f==NULL)
+    {
+        printf("Queue is empty");
+    }
+    else
+    {
+        printf("%d",f->data);
+        f=f->next;
+        free(p);
+    }
+    return f;
+}
+void disp(q *f)
+{
+    if(f==NULL)
+    {
+        printf("Queue is empty");
+    }
+    else
+    {
+        while(f!=NULL)
+        {
+            printf("%d",f->data);
+            f=f->next;
+        }
+    }
+}
