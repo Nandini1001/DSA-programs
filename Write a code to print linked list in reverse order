@@ -1,0 +1,35 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct list
+{
+    int data;
+    struct node *next;
+}sl;
+void rev_print(sl*);
+void main()
+{
+    sl *p=NULL, *l=NULL;
+    int ch;
+    while(1)
+    {
+        p=(sl*)malloc(sizeof(sl));
+        if(p!=NULL)
+        {
+            printf("Enter value: ");
+            scanf("%d",&p->data);
+            p->next=l;
+            l=p;
+        }
+        printf("Do you want to continue 1/0: ");
+        scanf("%d",&ch);
+        if(ch==0)
+            break;
+    }
+    rev_print(l);
+}
+void rev_print(sl *p)
+{
+    if(p->next!=NULL)
+        rev_print(p->next);
+    printf("%d ",p->data);
+}
