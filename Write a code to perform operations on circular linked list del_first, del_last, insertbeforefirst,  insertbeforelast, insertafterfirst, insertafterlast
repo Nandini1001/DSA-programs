@@ -1,0 +1,113 @@
+#include<stdio.h>
+typedef struct list
+{
+    int data;
+    struct list*next;
+}sl;
+sl* del_first(sl*,sl*);
+void del_last(sl*,sl*);
+sl* insertbeforefirst(sl*);
+void insertbeforelast(sl*,sl*);
+void insertafterfirst(sl*);
+sl* insertafterlast(sl*);
+void main()
+{
+    sl *p=NULL,*l=NULL,*r=NULL;
+    int ch;
+    while(1)
+    {
+        p=(sl*)malloc(sizeof(sl));
+        p->next=NULL;
+        if(p==NULL)
+            printf("Memory not allocated.");
+        else
+        {
+            scanf("%d",&p->data);
+            if(r==NULL && l==NULL)
+                l=r=p;
+            else
+            {
+                r->next=p;
+                r=p;
+            }
+            printf("Do u want to continue");
+            scanf("%d",&ch);
+            if(ch==0)
+            {
+                r->next=l;
+                break;
+            }
+        }
+    }
+    //del_last(l,r);
+    //l=del_first(l,r);
+    //l=insertbeforefirst(l);
+    //r=insertafterlast(r);
+    //insertafterfirst(l,r);
+    insertbeforelast(l,r);
+    p=l;
+    printf("%d ",p->data);
+    p=p->next;
+    while(p!=l)
+    {
+        printf("%d ",p->data);
+        p=p->next;
+    }
+}
+sl* del_first(sl *l,sl *r)
+{
+    sl*p=l;
+    r->next=l->next;
+    l=l->next;
+    free(p);
+    return l;
+}
+void del_last(sl*l,sl*r)
+{
+    while(l->next!=r)
+        l=l->next;
+    l->next=r->next;
+    free(r);
+}
+sl* insertbeforefirst(sl *l)
+{
+    sl*p=NULL,*s=l;
+    p=(sl*)malloc(sizeof(sl));
+    printf("Enter data: ");
+    scanf("%d",&p->data);
+    p->next=l;
+    while(s->next!=l)
+        s=s->next;
+    s->next=p;
+    return p;
+}
+sl* insertafterlast(sl *r)
+{
+    sl *p=NULL;
+    p=(sl*)malloc(sizeof(sl));
+    printf("Enter data");
+    scanf("%d",&p->data);
+    p->next=r->next;
+    r->next=p;
+    return p;
+}
+void insertafterfirst(sl*l)
+{
+    sl*p=NULL;
+    p=(sl*)malloc(sizeof(sl));
+    printf("Enter data");
+    scanf("%d",&p->data);
+    p->next=l->next;
+    l->next=p;
+}
+void insertbeforelast(sl*l,sl*r)
+{
+    sl*p=NULL,*s=l;
+    p=(sl*)malloc(sizeof(sl));
+    printf("Enter data");
+    scanf("%d",&p->data);
+    while(s->next->next!=l)
+        s=s->next;
+    p->next=s->next;
+    s->next=p;
+}
