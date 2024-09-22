@@ -11,6 +11,7 @@ void main()
     while(1)
     {
         p=(sl*)malloc(sizeof(sl));
+        p->next=NULL;
         if(p==NULL)
             printf("Memory not allocated.");
         else
@@ -32,9 +33,10 @@ void main()
             }
         }
     }
-    r->next=NULL;
     p=l;
-    while(p!=NULL)
+    printf("%d ",p->data);
+    p=p->next;
+    while(p!=l)
     {
         printf("%d ",p->data);
         p=p->next;
