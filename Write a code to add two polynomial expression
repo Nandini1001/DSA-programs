@@ -1,0 +1,94 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct list
+{
+    int exp;
+    int pow;
+    struct list *next;
+}sl;
+sl* create();
+sl* add(sl*,sl*);
+void disp(sl*);
+void main()
+{
+    sl *p1=NULL,*p2=NULL,*p3=NULL;
+    p1=create();
+    disp(p1);
+    p2=create();
+    disp(p2);
+    p3=add(p1,p2);
+    disp(p3);
+}
+sl* create()
+{
+    sl *p=NULL,*l=NULL;
+    int c;
+    while(1)
+    {
+        p=(sl*)malloc(sizeof(sl));
+        printf("Enter coeff and pow");
+        scanf("%d %d",&p->exp,&p->pow);
+        p->next=l;
+        l=p;
+        printf("do u 1/0");
+        scanf("%d",&c);
+        if(c==0)
+            break;
+    }
+    return l;
+}
+void disp(sl*p3)
+{
+    while(p3->next!=0)
+    {
+        printf("%dx^%d+",p3->exp,p3->pow);
+        p3=p3->next;
+    }
+    printf("%dx^%d",p3->exp,p3->pow);
+}
+sl* add(sl*p1,sl*p2)
+{
+    sl*l=NULL,*p=NULL,*r=NULL;
+    if(p1==NULL && p2==NULL)
+        return l;
+    while(p1!=NULL && p2!=NULL)
+    {
+        p=(sl*)malloc(sizeof(sl));
+        p->next=NULL;
+        if(l==NULL)
+            l=r=p;
+        else
+        {
+            r->next=p;
+            r=p;
+        }
+        if(p1->pow==p2->pow)
+        {
+            p->pow=p1->pow;
+            p->exp=p1->exp+p2->exp;
+            p1=p1->next;
+            p2=p2->next;
+        }
+        else if(p1->pow>p2->pow)
+        {
+            p->pow=p1->pow;
+            p->exp=p1->exp;
+            p1=p1->next;
+        }
+        else
+        {
+            p->pow=p2->pow;
+            p->exp=p2->exp;
+            p2=p2->next;
+        }
+    }
+    while(p1!=NULL)
+    {
+        p->next=p1;
+    }
+    while(p2!=NULL)
+    {
+        p->next=p2;
+    }
+    return l;
+}
