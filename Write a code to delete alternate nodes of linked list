@@ -1,0 +1,54 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct list
+{
+    int data;
+    struct list *next;
+}sl;
+sl* del_alternate(sl*);
+void main()
+{
+    sl *p=NULL, *l=NULL;
+    int ch;
+    while(1)
+    {
+        p=(sl*)malloc(sizeof(sl));
+        if(p==NULL)
+            printf("Memory not allocated");
+        else
+        {
+            printf("Enter a value: ");
+            scanf("%d",&p->data);
+            p->next=l;
+            l=p;
+            printf("Do you want to continue 1-0: ");
+            scanf("%d",&ch);
+            if(ch==0)
+                break;
+        }
+    }
+    l=del_alternate(l);
+    p=l;
+    while(p!=NULL)
+    {
+        printf("%d ",p->data);
+        p=p->next;
+    }
+}
+sl* del_alternate(sl *l)
+{
+    sl *p=l->next,*s=l;
+    l=l->next;
+    free(s);
+    while(p->next!=NULL)
+    {
+        sl *s=NULL;
+        s=p->next;
+        p->next=p->next->next;
+        p=p->next;
+        free(s);
+        if(p==NULL)
+            break;
+    }
+    return l;
+}
