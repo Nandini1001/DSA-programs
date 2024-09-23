@@ -1,0 +1,122 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct list
+{
+    int data;
+    struct list *next;
+    struct list *prev;
+}sl;
+sl* del_first(sl*);
+sl* del_last(sl*);
+sl* insertbeforefirst(sl*);
+void insertbeforelast(sl*);
+void insertafterfirst(sl*);
+sl* insertafterlast(sl*);
+void main()
+{
+    sl *p=NULL,*l=NULL,*r=NULL;
+    int c;
+    while(1)
+    {
+        p=(sl*)malloc(sizeof(sl));
+        p->next=NULL;
+        p->prev=NULL;
+        if(p==NULL)
+            printf("Memory not allocated.");
+        else
+        {
+            printf("Enter a value: ");
+            scanf("%d",&p->data);
+            if(l==NULL)
+            {
+                l=r=p;
+                p->prev=0;
+                p->next=0;
+            }
+            else
+            {
+                p->prev=r;
+                r->next=p;
+                r=p;
+            }
+            printf("Do you want to continue: ");
+            scanf("%d",&c);
+            if(c==0)
+            {
+                break;
+            }
+        }
+    }
+    //l=del_first(l);
+    //l=insertbeforefirst(l);
+    insertbeforelast(r);
+    //insertafterfirst(l);
+    //r=insertafterlast(r);
+    //r=del_last(r);
+    p=l;
+    while(p!=NULL)
+    {
+        printf("%d ",p->data);
+        p=p->next;
+    }
+}
+sl* del_first(sl* l)
+{
+    sl*p=l;
+    l=l->next;
+    p->next->prev=0;
+    free(p);
+    return l;
+}
+sl* del_last(sl *r)
+{
+    sl *p=r;
+    r->prev->next=0;
+    r=r->prev;
+    free(p);
+    return r;
+}
+sl* insertbeforefirst(sl *l)
+{
+    sl*p=NULL;
+    p=(sl*)malloc(sizeof(sl));
+    printf("Enter data: ");
+    scanf("%d",&p->data);
+    p->next=l;
+    p->prev=NULL;
+    l->prev=p;
+    return p;
+}
+void insertafterfirst(sl *l)
+{
+    sl*p=NULL;
+    p=(sl*)malloc(sizeof(sl));
+    printf("Enter data: ");
+    scanf("%d",&p->data);
+    p->prev=l;
+    p->next=l->next;
+    l->next=p;
+    l->next->prev=p;
+}
+sl* insertafterlast(sl *r)
+{
+    sl*p=NULL;
+    p=(sl*)malloc(sizeof(sl));
+    printf("Enter data: ");
+    scanf("%d",&p->data);
+    r->next=p;
+    p->next=0;
+    p->prev=r;
+    return p;
+}
+void insertbeforelast(sl *r)
+{
+    sl*p=NULL;
+    p=(sl*)malloc(sizeof(sl));
+    printf("Enter data: ");
+    scanf("%d",&p->data);
+    p->prev=r->prev;
+    p->next=r;
+    r->prev->next=p;
+    r->prev=p;
+}
