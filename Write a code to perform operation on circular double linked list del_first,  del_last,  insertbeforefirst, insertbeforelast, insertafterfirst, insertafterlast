@@ -12,6 +12,9 @@ sl* insertbeforefirst(sl*);
 void insertbeforelast(sl*);
 void insertafterfirst(sl*);
 sl* insertafterlast(sl*);
+void dltatany(sl*l);
+void insertbeforeatany(sl*l);
+void insertafteratany(sl*l);
 void main()
 {
     sl *p=NULL,*l=NULL,*r=NULL;
@@ -52,7 +55,10 @@ void main()
     //insertafterfirst(l);
     //r=insertafterlast(r);
     //insertbeforelast(r);
-    l=insertbeforefirst(l);
+    //l=insertbeforefirst(l);
+    //dltatany(l);
+    //insertbeforeatany(l);
+    insertafteratany(l);
     p=l;
     printf("%d ",p->data);
     p=p->next;
@@ -125,4 +131,60 @@ sl* insertbeforefirst(sl *l)
     l->prev->next=p;
     l->prev=p;
     return p;
+}
+void dltatany(sl *l)
+{
+    sl*t=l;
+    int info;
+    printf("Enter data of node to dlt: ");
+    scanf("%d",&info);
+    while(t!=NULL)
+    {
+        if(t->data==info)
+            break;
+        t=t->next;
+    }
+    t->prev->next=t->next;
+    t->next->prev=t->prev;
+    free(t);
+}
+void insertbeforeatany(sl *l)
+{
+    sl*p=NULL, *t=l;
+    int info;
+    p=(sl*)malloc(sizeof(sl));
+    printf("Enter data: ");
+    scanf("%d",&p->data);
+    printf("Enter data of node to insert before: ");
+    scanf("%d",&info);
+    while(t!=NULL)
+    {
+        if(t->data==info)
+            break;
+        t=t->next;
+    }
+    p->next=t;
+    p->prev=t->prev;
+    t->prev->next=p;
+    t->prev=p;
+}
+void insertafteratany(sl *l)
+{
+    sl*p=NULL, *t=l;
+    int info;
+    p=(sl*)malloc(sizeof(sl));
+    printf("Enter data: ");
+    scanf("%d",&p->data);
+    printf("Enter data of node to insert after: ");
+    scanf("%d",&info);
+    while(t!=NULL)
+    {
+        if(t->data==info)
+            break;
+        t=t->next;
+    }
+    p->prev=t;
+    p->next=t->next;
+    t->next->prev=p;
+    t->next=p;
 }
