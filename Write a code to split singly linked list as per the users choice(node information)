@@ -1,0 +1,64 @@
+#include<stdio.h>
+typedef struct list
+{
+    int data;
+    struct list*next;
+}sl;
+void split(sl *);
+void main()
+{
+    sl *p=NULL,*l=NULL,*r=NULL;
+    int ch;
+    while(1)
+    {
+        p=(sl*)malloc(sizeof(sl));
+        if(p==NULL)
+            printf("Memory not allocated.");
+        else
+        {
+            scanf("%d",&p->data);
+            if(r==NULL && l==NULL)
+                l=r=p;
+            else
+            {
+                r->next=p;
+                r=p;
+            }
+            printf("Do u want to continue");
+            scanf("%d",&ch);
+            if(ch==0)
+                break;
+        }
+    }
+    r->next=NULL;
+    split(l);
+}
+void split(sl *head)
+{
+    sl*p=head,*head1=NULL;
+    int info;
+    printf("Enter data from where you want to split: ");
+    scanf("%d",&info);
+    while(p!=NULL)
+    {
+       if(p->data==info)
+            break;
+       p=p->next;
+    }
+    head1=p->next;
+    p->next=0;
+    p=head;
+    printf("Data of 1st LL is: ");
+    while(p!=NULL)
+    {
+        printf("%d ",p->data);
+        p=p->next;
+    }
+    p=head1;
+    printf("\nData of 2nd LL is: ");
+    while(p!=NULL)
+    {
+        printf("%d ",p->data);
+        p=p->next;
+    }
+}
