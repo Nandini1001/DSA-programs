@@ -1,0 +1,78 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct list
+{
+    int data;
+    struct list *next;
+    struct list *prev;
+}sl;
+sl* insertatbeg(sl*,sl*);
+void insertatlast(sl*,sl*);
+void atany(sl*,sl*);
+void main()
+{
+    int c;
+    sl *temp=NULL, *head=NULL, *ptr=NULL;
+    while(1)
+    {
+        temp=(sl*)malloc(sizeof(sl));
+        printf("\nEntervalue: ");
+        scanf("%d",&temp->data);
+        temp->prev=NULL;
+        temp->next=NULL;
+        if(head==NULL)
+            head=ptr=temp;
+        else
+        {
+            if(temp->data<ptr->data)
+                head=insertatbeg(head, temp);
+            else
+            {
+                while(ptr!=NULL)
+                {
+                    if(temp->data>ptr->data && ptr->next!=NULL && temp->data<ptr->next->data)
+                    {
+                        atany(ptr,temp);
+                        break;
+                    }
+                    else if(temp->data>ptr->data && ptr->next==NULL)
+                    {
+                        insertatlast(ptr,temp);
+                        break;
+                    }
+                    ptr=ptr->next;
+                }
+            }
+        }
+        printf("Do u want to continue 1/0");
+        scanf("%d",&c);
+        if(c==0)
+            break;
+    }
+    ptr=head;
+    while(ptr!=NULL)
+    {
+        printf("%d ",ptr->data);
+        ptr =ptr->next;
+    }
+}
+sl* insertatbeg(sl* head, sl* temp)
+{
+    sl*ptr=head;
+    temp->next=head;
+    head->prev=temp;
+    head=temp;
+    return head;
+}
+void insertatlast(sl*ptr,sl *temp)
+{
+    ptr->next=temp;
+    temp->prev=ptr;
+}
+void atany(sl *ptr, sl *temp)
+{
+    temp->next=ptr->next;
+    temp->prev=ptr;
+    ptr->next->prev=temp;
+    ptr->next=temp;
+}
