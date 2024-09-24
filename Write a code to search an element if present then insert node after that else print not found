@@ -1,0 +1,69 @@
+#include<stdio.h>
+typedef struct list
+{
+    int data;
+    struct list*next;
+}sl;
+void search(sl*);
+void insert(sl*);
+void main()
+{
+    sl *p=NULL,*l=NULL,*r=NULL;
+    int ch;
+    while(1)
+    {
+        p=(sl*)malloc(sizeof(sl));
+        if(p==NULL)
+            printf("Memory not allocated.");
+        else
+        {
+            scanf("%d",&p->data);
+            if(r==NULL && l==NULL)
+                l=r=p;
+            else
+            {
+                r->next=p;
+                r=p;
+            }
+            printf("Do u want to continue");
+            scanf("%d",&ch);
+            if(ch==0)
+                break;
+        }
+    }
+    r->next=NULL;
+    search(l);
+}
+void search(sl *l)
+{
+    sl *p=NULL,*head=l;
+    int no,c=0;
+    printf("Enter no to search");
+    scanf("%d",&no);
+    while(head!=NULL)
+    {
+        if(head->data==no)
+        {
+            c=1;
+            insert(head);
+            p=l;
+            while(p!=NULL)
+            {
+                printf("%d ",p->data);
+                p=p->next;
+            }
+        }
+        head=head->next;
+    }
+    if(c==0)
+        printf("Number not found");
+}
+void insert(sl *l)
+{
+    sl *p=NULL;
+    p=(sl*)malloc(sizeof(sl*));
+    printf("Enter data: ");
+    scanf("%d",&p->data);
+    p->next=l->next;
+    l->next=p;
+}
