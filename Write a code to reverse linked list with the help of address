@@ -1,0 +1,51 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct list
+{
+    int data;
+    struct list *next;
+}sl;
+void main()
+{
+    sl *p=NULL,*r=NULL, *q=NULL, *s=NULL;
+    int ch;
+    while(1)
+    {
+        p=(sl*)malloc(sizeof(sl));
+        if(p!=NULL)
+        {
+            printf("Enter value");
+            scanf("%d",&p->data);
+            p->next=r;
+            r=p;
+            printf("Do you want to continue");
+            scanf("%d",&ch);
+            if(ch==0)
+                break;
+        }
+    }
+    p=r;
+    printf("\nList nodes are:");
+    while (p!=NULL)
+    {
+        printf("%d ",p->data);
+        p=p->next;
+    }
+    printf("\nList nodes are:");
+    p=r;
+    q=r->next;
+    while(q!=NULL)
+    {
+        s=q->next;
+        q->next=p;
+        p=q;
+        q=s;
+    }
+    r->next=NULL;
+    r=p;
+    while(p!=NULL)
+    {
+        printf("%d ",p->data);
+        p=p->next;
+    }
+}
