@@ -10,6 +10,9 @@ sl* insertbeforefirst(sl*);
 void insertbeforelast(sl*,sl*);
 void insertafterfirst(sl*);
 sl* insertafterlast(sl*);
+void dltatany(sl *);
+void insertafteratany(sl*);
+void insertbeforeatany(sl*);
 void main()
 {
     sl *p=NULL,*l=NULL,*r=NULL;
@@ -44,7 +47,10 @@ void main()
     //l=insertbeforefirst(l);
     //r=insertafterlast(r);
     //insertafterfirst(l,r);
-    insertbeforelast(l,r);
+    //insertbeforelast(l,r);
+    //dltatany(l);
+    //insertafteratany(l);
+    insertbeforeatany(l);
     p=l;
     printf("%d ",p->data);
     p=p->next;
@@ -110,4 +116,56 @@ void insertbeforelast(sl*l,sl*r)
         s=s->next;
     p->next=s->next;
     s->next=p;
+}
+void dltatany(sl*l)
+{
+    sl *p=l;
+    int info;
+    printf("Enter data to delete: ");
+    scanf("%d",&info);
+    while(p!=NULL)
+    {
+        if(p->next->data==info)
+            break;
+        p=p->next;
+    }
+    l=p->next;
+    p->next=p->next->next;
+    free(l);
+}
+void insertafteratany(sl *l)
+{
+    sl *p=NULL,*ll=l;
+    int info;
+    p=(sl*)malloc(sizeof(sl*));
+    printf("Enter data: ");
+    scanf("%d",&p->data);
+    printf("Enter data after which to insert: ");
+    scanf("%d",&info);
+    while(ll!=NULL)
+    {
+        if(ll->data==info)
+            break;
+        ll=ll->next;
+    }
+    p->next=ll->next;
+    ll->next=p;
+}
+void insertbeforeatany(sl *l)
+{
+    sl *p=NULL,*ll=l;
+    int info;
+    p=(sl*)malloc(sizeof(sl*));
+    printf("Enter data: ");
+    scanf("%d",&p->data);
+    printf("Enter data after which to insert: ");
+    scanf("%d",&info);
+    while(ll!=NULL)
+    {
+        if(ll->next->data==info)
+            break;
+        ll=ll->next;
+    }
+    p->next=ll->next;
+    ll->next=p;
 }
