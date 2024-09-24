@@ -1,0 +1,60 @@
+#include<stdlib.h>
+typedef struct list
+{
+    int data;
+    struct list *next;
+    struct list *prev;
+}sl;
+sl* mid(sl*);
+void main()
+{
+    sl *p=NULL,*l=NULL,*r=NULL;
+    int c;
+    while(1)
+    {
+        p=(sl*)malloc(sizeof(sl));
+        p->next=NULL;
+        p->prev=NULL;
+        if(p==NULL)
+            printf("Memory not allocated.");
+        else
+        {
+            printf("Enter a value: ");
+            scanf("%d",&p->data);
+            if(l==NULL)
+            {
+                l=r=p;
+            }
+            else
+            {
+                p->prev=r;
+                r->next=p;
+                r=p;
+            }
+            printf("Do you want to continue: ");
+            scanf("%d",&c);
+            if(c==0)
+            {
+                l->prev=r;
+                r->next=l;
+                break;
+            }
+        }
+    }
+    p=mid(l);
+     printf("Middle element is %d",p->data);
+}
+sl* mid(sl* l)
+{
+    sl *slow=NULL, *fast=NULL, *p=NULL;
+    int ch;
+    slow=fast=l;
+    while(1)
+    {
+        fast=fast->next->next;
+        slow=slow->next;
+        if(fast->next==l || fast->next->next==l)
+            break;
+    }
+    return slow;
+}
