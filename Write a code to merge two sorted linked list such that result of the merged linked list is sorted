@@ -1,0 +1,106 @@
+#include<stdio.h>
+typedef struct list
+{
+    int data;
+    struct list *next;
+}sl;
+sl* create();
+sl* merge(sl*,sl*);
+void main()
+{
+    printf("Enter values for 1st LL: ");
+    sl *p1=create();
+    printf("Enter values for 2nd LL: ");
+    sl *p2=create();
+    p1=merge(p1,p2);
+    while(p1!=NULL)
+    {
+        printf("%d ",p1->data);
+        p1=p1->next;
+    }
+}
+sl* create()
+{
+    sl *p=NULL,*l=NULL,*r=NULL;
+    int ch;
+    while(1)
+    {
+        p=(sl*)malloc(sizeof(sl));
+        if(p==NULL)
+            printf("Memory not allocated.");
+        else
+        {
+            scanf("%d",&p->data);
+            if(r==NULL && l==NULL)
+                l=r=p;
+            else
+            {
+                r->next=p;
+                r=p;
+            }
+            printf("Do u want to continue");
+            scanf("%d",&ch);
+            if(ch==0)
+                break;
+        }
+    }
+    r->next=NULL;
+    return l;
+}
+sl* merge(sl*p1,sl*p2)
+{
+    sl*h1=p1,*h2=p2,*r=NULL,*rr=NULL;
+    if(h1->data>h2->data)
+    {
+        rr=p2;
+        r=p2;
+        h2=h2->next;
+        r->next=h1;
+        h1=h1->next;
+        r=r->next;
+    }
+    else
+    {
+        rr=p1;
+        r=p1;
+        h1=h1->next;
+        r->next=h2;
+        h2=h2->next;
+        r=r->next;
+    }
+    while(h1!=NULL && h2!=NULL)
+    {
+        if(h1->data<h2->data)
+        {
+            r->next=h1;
+            h1=h1->next;
+            r=r->next;
+        }
+        else if(h1->data>h2->data)
+        {
+            r->next=h2;
+            h2=h2->next;
+            r=r->next;
+        }
+        else
+        {
+            r->next=h2;
+            h2=h2->next;
+            r=r->next;
+            r->next=h1;
+            h1=h1->next;
+            r=r->next;
+        }
+    }
+    while(h1!=NULL)
+    {
+        r->next=h1;
+        h1=h1->next;
+    }
+    while(h2!=NULL)
+    {
+        r->next=h2;
+        h2=h2->next;
+    }
+    return rr;
+}
