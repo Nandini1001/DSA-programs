@@ -37,8 +37,6 @@ void main()
     }
     insert(l);
     p=l;
-    printf("%d ",p->data);
-    p=p->next;
     while(p!=0)
     {
         printf("%d ",p->data);
@@ -52,7 +50,7 @@ void insert(sl* l)
     p=(sl*)malloc(sizeof(sl));
     printf("Enter data: ");
     scanf("%d",&p->data);
-    printf("Enter from last which node you want to dlt: ");
+    printf("Enter from last which node you want to insert: ");
     scanf("%d",&k);
     while(c!=k)
     {
@@ -122,7 +120,7 @@ void insert(sl* l)
     p=(sl*)malloc(sizeof(sl));
     printf("Enter data: ");
     scanf("%d",&p->data);
-    printf("Enter from last which node you want to dlt: ");
+    printf("Enter from last which node you want to insert: ");
     scanf("%d",&k);
     while(c!=k)
     {
@@ -184,8 +182,6 @@ sl *p=NULL,*l=NULL,*r=NULL;
     }
     insert(l);
     p=l;
-    printf("%d ",p->data);
-    p=p->next;
     while(p!=0)
     {
         printf("%d ",p->data);
@@ -199,7 +195,7 @@ void insert(sl* l)
     p=(sl*)malloc(sizeof(sl));
     printf("Enter data: ");
     scanf("%d",&p->data);
-    printf("Enter from last which node you want to dlt: ");
+    printf("Enter from last which node you want to insert: ");
     scanf("%d",&k);
     while(c!=k)
     {
@@ -278,7 +274,7 @@ void insert(sl* l)
     p=(sl*)malloc(sizeof(sl));
     printf("Enter data: ");
     scanf("%d",&p->data);
-    printf("Enter from last which node you want to dlt: ");
+    printf("Enter from last which node you want to insert: ");
     scanf("%d",&k);
     while(c!=k)
     {
