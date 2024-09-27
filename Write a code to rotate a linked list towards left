@@ -1,0 +1,55 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct list
+{
+    int data;
+    struct list *next;
+}sl;
+void main()
+{
+    sl *p=NULL,*r=NULL,*f=NULL,*s=NULL,*t=NULL,*tail=NULL,*l=NULL;
+    int ch,k,c=1;
+    while(1)
+    {
+        p=(sl*)malloc(sizeof(sl));
+        if(p==NULL)
+            printf("Memory not allocated.");
+        else
+        {
+            scanf("%d",&p->data);
+            if(r==NULL && l==NULL)
+                l=r=p;
+            else
+            {
+                r->next=p;
+                r=p;
+            }
+            printf("Do u want to continue");
+            scanf("%d",&ch);
+            if(ch==0)
+                break;
+        }
+    }
+    r->next=NULL;
+    s=l;
+    tail=l;
+    printf("Enter how many times you want to rotate: ");
+    scanf("%d",&k);
+    while(c<k)
+    {
+        c++;
+        tail=tail->next;
+    }
+    t=tail->next;
+    tail->next=0;
+    while(t!=0)
+    {
+        printf("%d ",t->data);
+        t=t->next;
+    }
+    while(s!=0)
+    {
+        printf("%d ",s->data);
+        s=s->next;
+    }
+}
