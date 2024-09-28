@@ -9,8 +9,7 @@ sl* rev(sl*,sl*);
 void main()
 {
     sl *p=NULL,*r=NULL,*t=NULL,*tail=NULL,*head=NULL;
-    //sl *p=NULL,*r=NULL,*f=NULL,*s=NULL,*t=NULL,*tail=NULL,*a=NULL,*head=NULL;
-    int ch,k,c=1;
+    int ch,k,c=1,cnt=0;
     while(1)
     {
         p=(sl*)malloc(sizeof(sl));
@@ -26,20 +25,33 @@ void main()
                 break;
         }
     }
+    //count no of nodes
+    p=r;
+    while(p!=0)
+    {
+        cnt++;
+        p=p->next;
+    }
     tail=r;
     printf("Enter how many times you want to rotate: ");
     scanf("%d",&k);
-    while(c<k)
+    k=k%cnt;
+    if(k==0)
+        head=r;
+    else
     {
-        c++;
-        tail=tail->next;
+        while(c<k)
+        {
+            c++;
+            tail=tail->next;
+        }
+        t=tail;
+        while(t->next!=0)
+            t=t->next;
+        t->next=r;
+        head=tail->next;
+        tail->next=0;
     }
-    t=tail;
-    while(t->next!=0)
-        t=t->next;
-    t->next=r;
-    head=tail->next;
-    tail->next=0;
     while(head!=0)
     {
         printf("%d ",head->data);
