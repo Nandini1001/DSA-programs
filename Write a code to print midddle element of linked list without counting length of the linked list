@@ -44,9 +44,18 @@ void main()
 }
 sl* mid(sl* l)
 {
-    sl *slow=NULL, *fast=NULL, *p=NULL;
+    sl *slow=NULL, *fast=NULL, *p=NULL, *head=l;
     int ch;
     slow=fast=l;
+    if(head==NULL)
+        return head;
+    if(head->next==0)
+        return head;
+    if(head->next->next==0)
+    {
+        p=head->next;
+        return p;
+    }
     while(1)
     {
         fast=fast->next->next;
