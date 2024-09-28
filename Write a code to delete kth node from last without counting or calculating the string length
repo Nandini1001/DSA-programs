@@ -5,7 +5,7 @@ typedef struct list
     int data;
     struct list *next;
 }sl;
-void dlt(sl*);
+sl* dlt(sl*);
 void main()
 {
     sl *p=NULL, *l=NULL, *r=NULL;
@@ -20,10 +20,10 @@ void main()
             if(l==NULL && r==NULL)
                 l=r=p;
             else
-            { 
+            {
                 r->next=p;
                 r=p;
-            } 
+            }
             r->next=NULL;
             printf("Do you want to continue 1/0: ");
             scanf("%d",&ch);
@@ -31,7 +31,7 @@ void main()
             break;
         }
     }
-    dlt(l);
+    l=dlt(l);
     p=l;
     while(p!=NULL)
     {
@@ -39,13 +39,28 @@ void main()
         p=p->next;
     }
 }
-void dlt(sl* l)
+sl* dlt(sl* l)
 {
     sl *p=NULL, *f=NULL, *g=NULL;
-    int c=1,k;
+    int c=1,k,cnt=0;
+    if(l==NULL)
+        return l;
     p=f=l;
+    while(p!=0)
+    {
+        cnt++;
+        p=p->next;
+    }
+    p=l;
     printf("Enter from last which node you want to dlt: ");
     scanf("%d",&k);
+    if(k==cnt)
+    {
+        g=l;
+        l=l->next;
+        free(g);
+        return l;
+    }
     while(c!=k)
     {
         c++;
@@ -59,4 +74,5 @@ void dlt(sl* l)
     g=f->next;
     f->next=f->next->next;
     free(g);
+    return l;
 }
