@@ -6,7 +6,7 @@ typedef struct list
     int data;
     struct list *next;
 }sl;
-void insert(sl*);
+sl* insert(sl*);
 void main()
 {
     sl *p=NULL,*l=NULL,*r=NULL;
@@ -35,7 +35,7 @@ void main()
             }
         }
     }
-    insert(l);
+    l=insert(l);
     p=l;
     while(p!=0)
     {
@@ -43,15 +43,26 @@ void main()
         p=p->next;
     }
 }
-void insert(sl* l)
+sl* insert(sl* l)
 {
     sl*p=NULL,*head=l,*h=l;
-    int k,c=1;
+    int k,c=1,cnt=0;
+    while(head!=0)
+    {
+        cnt++;
+        head=head->next;
+    }
+    head=l;
     p=(sl*)malloc(sizeof(sl));
     printf("Enter data: ");
     scanf("%d",&p->data);
     printf("Enter from last which node you want to insert: ");
     scanf("%d",&k);
+    if(k==cnt+1)
+    {
+        p->next=l;
+        return p;
+    }
     while(c!=k)
     {
         c++;
@@ -64,6 +75,7 @@ void insert(sl* l)
     }
     p->next=head->next;
     head->next=p;
+    return l;
 }
 //circular
 #include<stdio.h>
@@ -73,7 +85,7 @@ typedef struct list
     int data;
     struct list *next;
 }sl;
-void insert(sl*);
+sl* insert(sl*);
 void main()
 {
     sl *p=NULL,*l=NULL,*r=NULL;
@@ -103,7 +115,7 @@ void main()
             }
         }
     }
-    insert(l);
+    l=insert(l);
     p=l;
     printf("%d ",p->data);
     p=p->next;
@@ -113,15 +125,29 @@ void main()
         p=p->next;
     }
 }
-void insert(sl* l)
+sl* insert(sl* l)
 {
-    sl*p=NULL,*head=l,*h=l;
-    int k,c=1;
+    sl*p=NULL,*head=l->next,*h=l;
+    int k,c=1,cnt=1;
+    while(head!=l)
+    {
+        cnt++;
+        head=head->next;
+    }
+    head=l;
     p=(sl*)malloc(sizeof(sl));
     printf("Enter data: ");
     scanf("%d",&p->data);
     printf("Enter from last which node you want to insert: ");
     scanf("%d",&k);
+    if(k==cnt+1)
+    {
+        while(h->next!=l)
+            h=h->next;
+        h->next=p;
+        p->next=l;
+        return p;
+    }
     while(c!=k)
     {
         c++;
@@ -134,6 +160,7 @@ void insert(sl* l)
     }
     p->next=head->next;
     head->next=p;
+    return l;
 }
 //double
 #include<stdio.h>
@@ -144,7 +171,7 @@ typedef struct list
     struct list *next;
     struct list *prev;
 }sl;
-void insert(sl*);
+sl* insert(sl*);
 void main()
 {
 sl *p=NULL,*l=NULL,*r=NULL;
@@ -180,7 +207,7 @@ sl *p=NULL,*l=NULL,*r=NULL;
             }
         }
     }
-    insert(l);
+    l=insert(l);
     p=l;
     while(p!=0)
     {
@@ -188,15 +215,27 @@ sl *p=NULL,*l=NULL,*r=NULL;
         p=p->next;
     }
 }
-void insert(sl* l)
+sl* insert(sl* l)
 {
     sl*p=NULL,*head=l,*h=l;
-    int k,c=1;
+    int k,c=1,cnt=0;
+    while(head!=0)
+    {
+        cnt++;
+        head=head->next;
+    }
+    head=l;
     p=(sl*)malloc(sizeof(sl));
     printf("Enter data: ");
     scanf("%d",&p->data);
     printf("Enter from last which node you want to insert: ");
     scanf("%d",&k);
+    if(k==cnt+1)
+    {
+        p->next=l;
+        p->prev=0;
+        return p;
+    }
     while(c!=k)
     {
         c++;
@@ -211,6 +250,7 @@ void insert(sl* l)
     p->prev=head;
     head->next=p;
     head->next->prev=p;
+    return l;
 }
 //double circular
 #include<stdio.h>
@@ -221,7 +261,7 @@ typedef struct list
     struct list *next;
     struct list *prev;
 }sl;
-void insert(sl*);
+sl* insert(sl*);
 void main()
 {
     sl *p=NULL,*l=NULL,*r=NULL;
@@ -257,7 +297,7 @@ void main()
             }
         }
     }
-    insert(l);
+    l=insert(l);
     p=l;
     printf("%d ",p->data);
     p=p->next;
@@ -267,15 +307,30 @@ void main()
         p=p->next;
     }
 }
-void insert(sl* l)
+sl* insert(sl* l)
 {
     sl*p=NULL,*head=l,*h=l;
-    int k,c=1;
+    int k,c=1,cnt=1;
+    while(head->next!=l)
+    {
+        cnt++;
+        head=head->next;
+    }
+    head=l;
     p=(sl*)malloc(sizeof(sl));
     printf("Enter data: ");
     scanf("%d",&p->data);
     printf("Enter from last which node you want to insert: ");
     scanf("%d",&k);
+    if(k==cnt+1)
+    {
+        while(h->next!=l)
+            h=h->next;
+        h->next=p;
+        p->next=l;
+        p->prev=h;
+        return p;
+    }
     while(c!=k)
     {
         c++;
@@ -290,4 +345,5 @@ void insert(sl* l)
     p->prev=head;
     head->next=p;
     head->next->prev=p;
+    return l;
 }
