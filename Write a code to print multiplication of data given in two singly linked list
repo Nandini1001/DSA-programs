@@ -11,6 +11,8 @@ void main()
     sl *p1=create();
         printf("Enter values for 2nd LL: ");
     sl *p2=create();
+    if(p1==0 && p2==0)
+        return NULL;
     while(p1!=NULL && p2!=NULL)
     {
         printf("%d ",p1->data*p2->data);
