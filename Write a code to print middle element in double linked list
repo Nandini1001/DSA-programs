@@ -1,4 +1,5 @@
 #include<stdlib.h>
+#include<stdio.h>
 typedef struct list
 {
     int data;
@@ -49,7 +50,8 @@ sl* mid(sl* l)
     sl *slow=NULL, *fast=NULL, *p=NULL;
     int ch;
     slow=fast=l;
-    printf("J");
+    if(l->next==0 || l->next->next==0)
+        return l;
     while(1)
     {
         fast=fast->next->next;
