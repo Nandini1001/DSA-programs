@@ -1,4 +1,4 @@
-#include<stdio.h>         //all same as circular except structure
+#include<stdio.h>         
 #include<stdlib.h>
 typedef struct list
 {
