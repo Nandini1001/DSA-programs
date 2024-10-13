@@ -1,0 +1,85 @@
+#include<stdlib.h>
+#include<stdio.h>
+typedef struct list
+{
+    int data;
+    struct list*next;
+}sl;
+void palindrome(sl*);
+sl* rev(sl*);
+void main()
+{
+    sl *p=NULL,*l=NULL,*r=NULL;
+    int ch;
+    while(1)
+    {
+        p=(sl*)malloc(sizeof(sl));
+        if(p==NULL)
+            printf("Memory not allocated.");
+        else
+        {
+            scanf("%d",&p->data);
+            if(r==NULL && l==NULL)
+                l=r=p;
+            else
+            {
+                r->next=p;
+                r=p;
+            }
+            printf("Do u want to continue");
+            scanf("%d",&ch);
+            if(ch==0)
+                break;
+        }
+    }
+    r->next=NULL;
+    palindrome(l);
+}
+void palindrome(sl *head)
+{
+    sl*l=head,*h=0;
+    int cnt=0,c=1,flag=0;
+    while(l!=0)
+    {
+        cnt++;
+        l=l->next;
+    }
+    l=head;
+    while(c<(cnt+1)/2)
+    {
+        l=l->next;
+        c++;
+    }
+    h=rev(l->next);
+    l->next=h;
+    l=head;
+    while(h!=0)
+    {
+        if(l->data!=h->data)
+        {
+            printf("No");
+            flag=1;
+            break;
+        }
+        h=h->next;
+        l=l->next;
+    }
+    if(flag==0)
+        printf("Yes");
+}
+sl* rev(sl *head)
+{
+    sl *p,*q,*s;
+    p=head;
+    q=head->next;
+    while(q!=NULL)
+    {
+        s=q->next;
+        q->next=p;
+        p=q;
+        q=s;
+    }
+    head->next=NULL;
+    head=p;
+    return head;
+}
