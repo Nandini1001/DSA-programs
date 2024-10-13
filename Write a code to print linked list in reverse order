@@ -33,3 +33,11 @@ void rev_print(sl *p)
         rev_print(p->next);
     printf("%d ",p->data);
 }
+//alternate of above
+void rev_print(sl *l)
+{
+    if(l==0)
+        return;
+    rev_print(l->next);
+    printf("%d",l->data);
+}
