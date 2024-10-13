@@ -1,4 +1,4 @@
-#include<stdio.h>   //same for double LL except creation of nodes
+#include<stdio.h>  
 #include<stdlib.h>
 typedef struct list
 {
@@ -35,6 +35,7 @@ void main()
         p=p->next;
     }
 }
+// 1 2 3 4 5 = 2 4
 sl* del_alternate(sl *l)
 {
     sl *p=l->next,*s=l;
@@ -51,4 +52,24 @@ sl* del_alternate(sl *l)
             break;
     }
     return l;
+}
+//1 2 3 4 5 = 1 3 5
+void del_alternate(sl *l)
+{
+    sl *f=NULL,*h=l;
+    if(l->next==0 || l==0)
+        return;
+    while(1)
+    {
+        f=h->next;
+        if(f->next==0 || f->next->next==0)
+        {
+            h->next=h->next->next;
+            free(f);
+            break;
+        }
+        h->next=h->next->next;
+        free(f);
+        h=h->next;
+    }
 }
