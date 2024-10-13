@@ -45,6 +45,7 @@ void main()
         p=p->next;
     }
 }
+//1 2 3 4 5= 1 3 5
 void del_alternate(sl *l)
 {
     sl *p=l,*s=NULL;
@@ -56,5 +57,25 @@ void del_alternate(sl *l)
         free(s);
         if(p==l)
             break;
+    }
+}
+// alternate of above
+void del_alternate(sl *l)
+{
+    sl *f=NULL,*h=l;
+    if(l->next==l || l==0)
+        return;
+    while(1)
+    {
+        f=h->next;
+        if(f->next==l || f->next->next==l)
+        {
+            h->next=h->next->next;
+            free(f);
+            break;
+        }
+        h->next=h->next->next;
+        free(f);
+        h=h->next;
     }
 }
