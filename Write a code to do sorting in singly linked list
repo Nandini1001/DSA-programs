@@ -1,0 +1,149 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct SL
+{
+	int data;
+	struct SL *next;
+}sl;
+
+sl *create(sl *head, sl *ptr, sl *temp)
+{
+	int val, ch;
+	while(1)
+	{
+		ptr = (sl*)malloc(sizeof(sl));
+		if(ptr != NULL)
+		{
+			printf("Enter Value: ");
+			scanf("%d", &val);
+			ptr -> data = val;
+			if(head == NULL && temp == NULL)
+			{
+				head = temp = ptr;
+			}
+			else
+			{
+				temp -> next = ptr;
+				temp = ptr;
+			}
+			printf("Enter 1/0: ");
+			scanf("%d", &ch);
+			if(ch == 0)
+				break;
+		}
+	}
+	temp -> next = NULL;
+	return head;
+}
+
+void disp(sl *head, sl *ptr)
+{
+	ptr = head;
+	while(ptr != NULL)
+	{
+		printf("%d ", ptr -> data);
+		ptr = ptr -> next;
+	}
+}
+
+sl *sort_asc(sl *head, sl *ptr)
+{
+	ptr = head;
+	int info;
+	sl *ptr1 = NULL, *ptr2 = NULL;
+	for(ptr1 = ptr; ptr1 -> next != NULL; ptr1 = ptr1 -> next)
+	{
+		for(ptr2 = ptr1 -> next; ptr2 != NULL; ptr2 = ptr2 -> next) 
+		{
+			if(ptr1 -> data > ptr2 -> data)
+			{
+				info = ptr1 -> data;
+				ptr1 -> data = ptr2 -> data;
+				ptr2 -> data = info;
+			}
+		}
+	}
+	return head;
+}  
+
+sl *sort_desc(sl *head, sl *ptr)
+{
+	ptr = head;
+	int info;
+	sl *ptr1 = NULL, *ptr2 = NULL;
+	for(ptr1 = ptr; ptr1 -> next != NULL; ptr1 = ptr1 -> next)
+	{
+		for(ptr2 = ptr1 -> next; ptr2 != NULL; ptr2 = ptr2 -> next) 
+		{
+			if(ptr1 -> data < ptr2 -> data)
+			{
+				info = ptr1 -> data;
+				ptr1 -> data = ptr2 -> data;
+				ptr2 -> data = info;
+			}
+		}
+	}
+	return head;
+}  
+
+sl *rev(sl *head, sl *ptr)
+{
+	ptr = head;
+	int info;
+	sl *ptr1 = NULL, *ptr2 = NULL;
+	for(ptr1 = ptr; ptr1 -> next != NULL; ptr1 = ptr1 -> next)
+	{
+		for(ptr2 = ptr1 -> next; ptr2 != NULL; ptr2 = ptr2 -> next) 
+		{
+			info = ptr1 -> data;
+			ptr1 -> data = ptr2 -> data;
+			ptr2 -> data = info;
+		}
+	}
+	return head;
+}  
+
+void main()
+{
+	sl *head = NULL, *ptr = NULL, *temp = NULL;
+	int ch;
+	do
+	{
+		printf("\nEnter 1 to create");
+		printf("\nEnter 2 to display");
+		printf("\nEnter 3 to sort in ascending order");
+		printf("\nEnter 4 to sort in descending order");
+		printf("\nEnter 3 to sort in ascending order");
+		printf("\nEnter 0 to exit");
+		printf("\nEnter your choice: ");
+		scanf("%d", &ch);
+		switch(ch)
+		{
+			case 1:
+				head = create(head, ptr, temp);
+				break;
+				
+			case 2:
+				disp(head, ptr);
+				break;
+				
+			case 3:
+				head = sort_asc(head, ptr);
+				break;
+			
+			case 4:
+				head = sort_desc(head, ptr);
+				break;
+				
+			case 5:
+				head = rev(head, ptr);
+				break;	
+				
+			case 0:
+				printf("Thank You");
+				
+		}
+	}
+	while(ch != 0);
+}
