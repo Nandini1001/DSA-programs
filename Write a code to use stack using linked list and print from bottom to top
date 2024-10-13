@@ -1,0 +1,68 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct list
+{
+    int data;
+    struct list *next;
+}sl;
+sl* push(sl*);
+sl* pop(sl*);
+void disp(sl*);
+void main()
+{
+    sl *top=NULL;
+    int ch;
+    do
+    {
+        printf("\npress 1-push 2-pop 3-disp: ");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+        case 1:
+            top=push(top);
+            break;
+        case 2:
+            top=pop(top);
+            break;
+        case 3:
+            disp(top);
+            break;
+        }
+    }while(ch<=3);
+}
+sl* push(sl*top)
+{
+    sl *p=NULL;
+    p=(sl*)malloc(sizeof(sl));
+    if(p==NULL)
+        printf("Memory not allocated");
+    else
+    {
+        printf("enter a value: ");
+        scanf("%d",&p->data);
+        p->next=top;
+        top=p;
+    }
+    return top;
+}
+sl* pop(sl *top)
+{
+    sl *p=NULL;
+    if(top==NULL)
+        printf("Stack is empty");
+    else
+    {
+        p=top;
+        printf("%d ",top->data);
+        top=top->next;
+        free(p);
+    }
+    return top;
+}
+void disp(sl*top)
+{
+    if(top==NULL)
+        return;
+    disp(top->next);
+    printf("%d ",top->data);
+}
