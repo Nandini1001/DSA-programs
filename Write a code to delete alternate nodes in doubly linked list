@@ -58,6 +58,7 @@ void del_alternate(sl *l)
         s=p->next;
         p->next=p->next->next;
         p=p->next;
+        p->prev=s->prev;
         free(s);
         if(p==0)
             break;
