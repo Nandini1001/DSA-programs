@@ -73,3 +73,17 @@ void del_alternate(sl *l)
         h=h->next;
     }
 }
+// alternate of above 1 2 = 1
+void del_alternate(sl *l)
+{
+    sl *p=l,*s=NULL;
+    while(p->next!=0)
+    {
+        s=p->next;
+        p->next=p->next->next;
+        p=p->next;
+        free(s);
+        if(p==0)
+            break;
+    }
+}
