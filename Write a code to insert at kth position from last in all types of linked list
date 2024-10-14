@@ -63,7 +63,7 @@ sl* insert(sl* l)
         p->next=l;
         return p;
     }
-    while(c!=k)
+    /*while(c!=k)
     {
         c++;
         h=h->next;
@@ -75,6 +75,22 @@ sl* insert(sl* l)
     }
     p->next=head->next;
     head->next=p;
+    return l;*/
+    if(k==1)
+    {
+        while(head->next!=0)
+            head=head->next;
+        p->next=head->next;
+        head->next=p;
+        return l;
+    }
+    while(c<cnt-k)
+    {
+        c++;
+        h=h->next;
+    }
+    p->next=h->next;
+    h->next=p;
     return l;
 }
 //circular
