@@ -65,7 +65,6 @@ sl* del_first(sl *l,sl *r)
     sl*p=l;
     r->next=l->next;
     l=l->next;
-    l->prev=p->prev;
     free(p);
     return l;
 }
