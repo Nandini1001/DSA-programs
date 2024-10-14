@@ -24,7 +24,7 @@ void main()
             head=ptr=temp;
         else
         {
-            if(temp->data<ptr->data)
+            if(temp->data<head->data)
                 head=insertatbeg(head, temp);
             else
             {
