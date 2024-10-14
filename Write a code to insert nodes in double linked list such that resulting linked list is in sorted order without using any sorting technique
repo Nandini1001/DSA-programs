@@ -43,6 +43,7 @@ void main()
                     ptr=ptr->next;
                 }
             }
+            ptr=head;
         }
         printf("Do u want to continue 1/0");
         scanf("%d",&c);
