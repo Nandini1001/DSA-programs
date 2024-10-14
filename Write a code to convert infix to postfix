@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include<string.h>
+#define max 20
+void push(char[],char,int *);
+char pop(char[],int *);
+int prec(char);
+int main()
+{
+    char stack[max],infix[max],postfix[max],ch,x;
+    int top=-1,i=0,j=0;
+    printf("enter ");
+    gets(infix);
+    int l=strlen(infix);
+    infix[l]=')';
+    infix[l+1]=0;
+    push(stack,'(',&top);
+    while(infix[i]!='\0'){
+        ch=infix[i];
+        if(ch>=65 && ch<=90 || ch>=97 && ch<=122){
+            postfix[j++]=ch;
+        }
+        else if(ch=='('){
+            push(stack,ch,&top);
+        }
+        else if(ch==')'){
+            while((x=pop(stack,&top)) !='(')
+            {
+                postfix[j++]=x;
+            }
+        }
+        else{
+            while(top!=-1 && prec(stack[top])>prec(ch)){
+                postfix[j++]=pop(stack,&top);
+            }
+            push(stack,ch,&top);
+        }
+        i++;
+    }
+    while(top!=-1){
+        postfix[j++]=pop(stack,&top);
+    }
+    postfix[j]='\0';
+    printf("%s",postfix);
+    return 0;
+}
+void push(char stack[],char ch,int *top){
+    if(*top ==max -1){
+        printf("full ");
+    }
+    else{
+        (*top)++;
+        stack[*top]=ch;
+    }
+}
+char pop(char stack [],int *top){
+    char x;
+    if(*top==-1){
+        printf("empty ");
+    }
+    else{
+        x=stack[*top];
+        (*top)--;
+    }
+    return x;
+}
+int prec(char ch){
+    switch(ch){
+        case '^':
+        return 5;
+        case '*':
+        case '/':
+        case '%':
+        return 4;
+        case '+':
+        case '-':
+        return 3;
+        default:
+        return 1;
+    }
+}
