@@ -82,11 +82,11 @@ sl* add(sl*p1,sl*p2)
             p2=p2->next;
         }
     }
-    while(p1!=NULL)
+    if(p1!=NULL)
     {
         p->next=p1;
     }
-    while(p2!=NULL)
+    if(p2!=NULL)
     {
         p->next=p2;
     }
