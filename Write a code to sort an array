@@ -1,0 +1,88 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+void selection_sort(int a[],int i,int j)
+{
+    int temp;
+    for(i=0;i<j;i++)
+    {
+        for(int k=i+1;k<=j;k++)
+        {
+            if(a[i]>a[k])
+            {
+                temp=a[i];
+                a[i]=a[k];
+                a[k]=temp;
+            }
+        }
+    }
+}
+void insertion_sort(int a[],int i,int j)
+{
+    for(int i=1;i<=j;i++)
+    {
+        int k=i;
+        while(k>0 && a[k]<a[k-1])
+        {
+            int temp=a[k];
+            a[k]=a[k-1];
+            a[k-1]=temp;
+            k--;
+        }
+    }
+}
+void bubble_sort(int a[],int i,int j)
+{
+    for(int m=j;m>0;m--)
+    {
+        for(int n=0;n<m;n++)
+        {
+            if(a[n]>a[n+1])
+            {
+                int temp=a[n];
+                a[n]=a[n+1];
+                a[n+1]=temp;
+            }
+        }
+    }
+}
+
+//merge sort
+void merge(int a[],int i,int j, int mid)
+{
+    int temp[40],p=i;
+    int left=i;
+    int right=mid+1;
+    while(left<=mid && right<=j)
+    {
+        if(a[left]<=a[right])
+            temp[p++]=a[left++];
+        else
+            temp[p++]=a[right++];
+    }
+    while(left<=mid)
+        temp[p++]=a[left++];
+    while(right<=j)
+        temp[p++]=a[right++];
+    for(int k=0;k<=j;k++)
+        a[k]=temp[k];
+}
+void merge_sort(int a[],int i,int j)
+{
+    if(i==j)
+        return;
+    int mid=(i+j)/2;
+    merge_sort(a,i,mid);
+    merge_sort(a,mid+1,j);
+    merge(a,i,j,mid);
+}
+void main() 
+{
+    int a[]={75,0,-1,10,-4,100},j;
+    j=sizeof(a)/sizeof(a[0])-1;
+    for(int m=0;m<=j;m++)
+        printf("%d ",a[m]);
+    bubble_sort(a,0,j);
+    for(int i=0;i<=j;i++)
+        printf("%d ",a[i]);
+    printf("d");
+}
