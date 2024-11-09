@@ -1,0 +1,43 @@
+#include <stdio.h>
+int binary_search_rec(int a[],int i,int j,int k)
+{
+    if(i==j)
+    {
+        if(a[i]==k)
+            return i;
+        return -1;
+    }
+    int mid=(i+j)/2;
+    if(a[mid]==k)
+        return mid;
+    else if(a[mid]>k)
+        binary_search(a,i,mid-1,k);
+    else
+        binary_search(a,mid+1,j,k);
+}
+int binary_search_nonrec(int a[],int i,int j,int k)
+{
+    int mid;
+    while(i<=j)
+    {
+        mid=(i+j)/2;
+        if(a[mid]==k)
+            return mid;
+        else if(a[mid]<k)
+            i=mid+1;
+        else
+            j=mid-1;
+    }
+    return -1;
+}
+void main() 
+{
+    int a[]={7},j,key,pos;
+    j=sizeof(a)/sizeof(a[0])-1;
+    key=2;
+    pos=binary_search(a,0,j,key);
+    if(pos==-1)
+        printf("Not Found");
+    else
+        printf("Found at %d",pos+1);
+}
