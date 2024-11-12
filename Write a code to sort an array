@@ -1,5 +1,5 @@
-// Online C compiler to run C program online
 #include <stdio.h>
+//better approach
 void selection_sort(int a[],int i,int j)
 {
     int temp;
@@ -14,6 +14,25 @@ void selection_sort(int a[],int i,int j)
                 a[k]=temp;
             }
         }
+    }
+}
+//more optimise
+void selection_sort(int a[],int i,int j)
+{
+    int temp,mini;
+    for(i=0;i<j;i++)
+    {
+        mini=i;
+        for(int k=i+1;k<=j;k++)
+        {
+            if(a[i]>a[k])
+            {
+                mini=k;
+            }
+        }
+        temp=a[i];
+        a[i]=a[mini];
+        a[mini]=temp;
     }
 }
 void insertion_sort(int a[],int i,int j)
@@ -84,5 +103,4 @@ void main()
     bubble_sort(a,0,j);
     for(int i=0;i<=j;i++)
         printf("%d ",a[i]);
-    printf("d");
 }
