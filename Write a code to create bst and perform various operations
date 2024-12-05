@@ -1,0 +1,259 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct tree {
+	struct tree *left;
+	int data;
+	struct tree *right;
+} bst;
+bst* insert(bst *rt,int k)
+{
+	bst *temp=NULL;
+	if(rt==NULL)
+	{
+		temp=(bst*)malloc(sizeof(bst));
+		if(temp==NULL)
+			printf("Memory not allocated.");
+		else
+		{
+			temp->data=k;
+			temp->left=NULL;
+			temp->right=NULL;
+			return temp;
+		}
+	}
+	else if(k<rt->data)
+		rt->left=insert(rt->left,k);
+	else if(k>rt->data)
+		rt->right=insert(rt->right,k);
+	else
+		printf("\nDuplicates are not allowed.\n");
+	return rt;
+}
+int height(bst *rt)
+{
+    if(rt==NULL)
+        return 0;
+    int l=height(rt->left);
+    int r=height(rt->right);
+    if(l>r)
+        return l+1;
+    else
+        return r+1;
+}
+void inorder(bst *rt)
+{
+	if(rt!=NULL)
+	{
+		inorder(rt->left);
+		printf("%d ",rt->data);
+		inorder(rt->right);
+	}
+}
+void total_nodes(bst *rt,int *cnt)
+{
+	if(rt!=NULL)
+	{
+		total_nodes(rt->left,cnt);
+		(*cnt)++;
+		total_nodes(rt->right,cnt);
+	}
+}
+void total_leaf_nodes(bst *rt,int *cnt)
+{
+	if(rt!=NULL)
+	{
+		if(rt->left==NULL && rt->right==NULL)
+			(*cnt)++;
+		total_leaf_nodes(rt->left,cnt);
+		total_leaf_nodes(rt->right,cnt);
+	}
+}
+void total_nodes_1child(bst *rt,int *cnt)
+{
+	if(rt!=NULL)
+	{
+		if((rt->left!=NULL && rt->right==NULL) || (rt->left==NULL && rt->right!=NULL))
+			(*cnt)++;
+		total_nodes_1child(rt->left,cnt);
+		total_nodes_1child(rt->right,cnt);
+	}
+}
+void total_nodes_2child(bst *rt,int *cnt)
+{
+	if(rt!=NULL)
+	{
+		if(rt->left!=NULL && rt->right!=NULL)
+			(*cnt)++;
+		total_nodes_2child(rt->left,cnt);
+		total_nodes_2child(rt->right,cnt);
+	}
+}
+void common(bst* rt,int* cnt)
+{
+	if(rt!=NULL)
+	{
+		if(rt->left!=NULL && rt->right!=NULL)
+			(*cnt)=(*cnt)+2;
+		common(rt->left,cnt);
+		common(rt->right,cnt);
+	}
+}
+void internal(bst *rt, int *cnt)
+{
+	if(rt!=NULL)
+	{
+		if((rt->left!=NULL && rt->right!=NULL) || (rt->left==NULL && rt->right!=NULL) || (rt->left!=NULL && rt->right==NULL))
+			(*cnt)++;
+		internal(rt->left,cnt);
+		internal(rt->right,cnt);
+	}
+}
+void sec_high(bst *rt)
+{
+	if(rt==NULL || (rt->right==NULL && rt->left==NULL))
+	{
+		printf("No second highest data.");
+		return;
+	}
+	if(rt->right!=NULL)
+	{
+		bst *parent=NULL;
+		while(rt->right!=NULL)
+		{
+			parent=rt;
+			rt=rt->right;
+		}
+		printf("Second highest data is %d",parent->data);
+		return;
+	}
+	if(rt->left!=NULL)
+	{
+		rt=rt->left;
+		while(rt->right!=NULL)
+			rt=rt->right;
+		printf("Second highest data is %d",rt->data);
+	}
+}
+bst* min(bst* root){
+    bst* temp=root;
+    while(temp->left!=NULL){
+        temp=temp->left;
+    }
+    return temp;
+}
+bst* delete(bst* root,int d){
+    if(root==NULL)
+    return NULL;
+    if(root->data==d){
+        
+        if(root->left==NULL && root->right==NULL){
+            //printf("deleted node is %d",root->data);
+            free(root);
+            return NULL;
+        }
+        if(root->left!=NULL && root->right==NULL){
+            bst* temp=root->left;
+            free(root);
+            return temp;
+        }
+        if(root->left==NULL && root->right!=NULL){
+            bst* temp=root->right;
+            free(root);
+            return temp;
+        }
+        if(root->left!=NULL && root->right!=NULL){
+            int mini=min(root->right)->data;
+            root->data=mini;
+            root->right=delete(root->right,mini);
+            return root;
+        }
+    }
+    
+    else if(root->data >d){
+        root->left=delete(root->left,d);
+    }
+    else{
+        root->right=delete(root->right,d);
+    }
+    return root;
+}
+void main()
+{
+	bst *root=NULL;
+	int c,key,cnt=0;
+	while(1)
+	{
+		printf("\nPress 1 to create, 2 to count total nodes, 3 to count leaf nodes, 4 to count nodes on left side of root node, 5 to count nodes on right side of root node, 6 to find second highest data, 7 to count nodes with single child, 8 to count nodes with 2 child, 9 to find common parent, 10 to display, 11 to count internal nodes, 12 to find height of tree, 13 to delete a node and 14 to stop: ");
+		scanf("%d",&c);
+		switch(c)
+		{
+		case 1:
+			printf("Enter value: ");
+			scanf("%d",&key);
+			root=insert(root,key);
+			break;
+		case 2:
+			cnt=0;
+			total_nodes(root,&cnt);
+			printf("Total nodes are %d",cnt);
+			break;
+		case 3:
+			cnt=0;
+			total_leaf_nodes(root,&cnt);
+			printf("Total leaf nodes are: %d",cnt);
+			break;
+		case 4:
+			cnt=0;
+			total_nodes(root->left,&cnt);
+			printf("Total nodes on left of the root are: %d",cnt);
+			break;
+		case 5:
+			cnt=0;
+			total_nodes(root->right,&cnt);
+			printf("Total nodes on right of the root are: %d",cnt);
+			break;
+		case 6:
+			cnt=0;
+			sec_high(root);
+			break;
+		case 7:
+			cnt=0;
+			total_nodes_1child(root,&cnt);
+			printf("Total nodes with 1 child are: %d",cnt);
+			break;
+		case 8:
+			cnt=0;
+			total_nodes_2child(root,&cnt);
+			printf("Total nodes with 2 child are: %d",cnt);
+			break;
+		case 9:
+			cnt=0;
+			common(root,&cnt);
+			printf("Nodes having common parent are: %d",cnt);
+			break;
+		case 10:
+			inorder(root);
+			break;
+		case 11:
+			cnt=0;
+			internal(root,&cnt);
+			printf("Total number of internal nodes are: %d",cnt);
+			break;
+		case 12:
+		    cnt=height(root);
+		    printf("Height of tree is %d",cnt);
+		    break;
+		case 13:
+		    printf("Enter node value to be deleted: ");
+		    scanf("%d",&key);
+		    root=delete(root,key);
+		    break;
+		case 14:
+			printf("\nPROGRAM EXECUTED SUCCESSFULLY.");
+			break;
+
+		}
+		if(c==14)
+			break;
+	}
+}
